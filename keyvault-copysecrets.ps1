@@ -20,9 +20,6 @@ $permissions = @("list", "get", "set")
 # Add the access policy to the destination vault
 az keyvault set-policy --name $destinationVaultName --object-id $userObjectId --secret-permissions $permissions
 
-# Authenticate to the destination vault
-az login --identity -u $userName
-
 # Iterate over the secrets and copy them
 foreach ($secretName in $secretsToCopy) {
     $sourceSecret = az keyvault secret show --vault-name $sourceVaultName --name $secretName --query "value" -o tsv
